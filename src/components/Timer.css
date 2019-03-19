@@ -41,25 +41,10 @@ body {
 	transition: all 1s;
 }
 
-.toggle.hide {
-	/* visibility: hidden; */
-	/* color: #7c7c7c3a;
-	transition: color 1s; */
-}
-
 .toggle:disabled {
 	color: #7c7c7c3a;
 }
 
-/* .time-container.work {
-	background: #9de096;
-	transition: background 1s;
-}
-
-.time-container.short {
-	background: #308f5a;
-	transition: background 1s;
-} */
 
 .btns button {
 	padding: 10px 15px;

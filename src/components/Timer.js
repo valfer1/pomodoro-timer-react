@@ -39,7 +39,7 @@ export default class Timer extends Component {
 			this.setState({
 				alert: {
 					type: "work",
-					message: "Working!"
+					message: "Werk!"
 				},
 				time: this.times.defaultTime,
 				play: true,
@@ -53,7 +53,7 @@ export default class Timer extends Component {
 			this.setState({
 				alert: {
 					type: "short",
-					message: "Short break!"
+					message: "Taking a lil' break"
 				},
 				time: this.times.shortBreak,
 				play: true,
@@ -67,7 +67,7 @@ export default class Timer extends Component {
 			this.setState({
 				alert: {
 					type: "long",
-					message: "Long break!"
+					message: "Taking a well deserved long break"
 				},
 				time: this.times.longBreak,
 				play: true,
@@ -132,7 +132,6 @@ export default class Timer extends Component {
 					</p>
 				</div>
 				<button className={`toggle`} disabled={!this.state.showPlay && true } onClick={this.togglePlay}>{this.state.play ? <i class="fas fa-pause-circle"></i> : <i class="fas fa-play-circle"></i>}</button>
-					{/* {this.state.showPlay ? <button className="toggle" onClick={this.togglePlay}>{this.state.play ? <i class="fas fa-pause-circle"></i> : <i class="fas fa-play-circle"></i>}</button> : "Click below"} */}
         </div>
 				<div className="btns">
 					<button className="start" onClick={this.setTimeForWork}>Start working</button>
