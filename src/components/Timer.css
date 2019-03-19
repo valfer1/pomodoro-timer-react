@@ -7,6 +7,10 @@ body {
 	background: #141414;
 	color: #ffffff;
 	font-family: 'Roboto Condensed', sans-serif;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 .cont {
 	display: flex;
@@ -31,10 +35,6 @@ body {
 
 .time-container.work {
 	border-color: #00c911;
-}
-
-.time-container.short, .time-container.long {
-	border-color: #c45800;
 }
 
 .time-container.buz {
@@ -65,5 +65,14 @@ body {
 	background: #006d75;
 	color: #fff;
 	font-family: 'Roboto Condensed', sans-serif;
+}
+
+.btns button:hover {
+	background: #00474d;
+	transition: background 0.5s;
+}
+
+button {
+	cursor: pointer;
 }
 
