@@ -7,9 +7,10 @@ export default class Timer extends Component {
         this.state = {
             alert: {
                 type: "",
-                message: ""
+                message: "Ready?"
             },
-            time: 0
+						time: 0,
+						play: false
         }
 
         this.times = {
@@ -38,7 +39,8 @@ export default class Timer extends Component {
 					type: "work",
 					message: "Working!"
 				},
-				time: this.times.defaultTime
+				time: this.times.defaultTime,
+				play: true
 			})
 
 			this.restartInterval()
@@ -89,6 +91,17 @@ export default class Timer extends Component {
 			}
 		}
 
+		play = () => {
+			if(this.state.play === true) return;
+
+			this.restartInterval();
+			this.setState({ play: true })
+		}
+
+		pause = () => {
+			clearInterval(this.interval)
+		}
+
   render() {
       const { alert: { type, message }, time} = this.state;
 
@@ -105,6 +118,7 @@ export default class Timer extends Component {
 					<button className="start" onClick={this.setTimeForWork}>Start working</button>
 					<button className="short" onClick={this.setTimeForShortBreak}>Short break</button>
 					<button className="long" onClick={this.setTimeForLongBreak}>Long break</button>
+					<button onClick={this.pause}>pause</button>
 				</div>
       </div>
     )
