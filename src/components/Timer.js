@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import "./Timer.css"
 
 export default class Timer extends Component {
     constructor(){
@@ -10,7 +11,8 @@ export default class Timer extends Component {
                 message: "Ready?"
             },
 						time: 0,
-						play: false
+						play: false,
+						showPlay: false
         }
 
         this.times = {
@@ -40,7 +42,8 @@ export default class Timer extends Component {
 					message: "Working!"
 				},
 				time: this.times.defaultTime,
-				play: true
+				play: true,
+				showPlay: true
 			})
 
 			this.restartInterval()
@@ -52,7 +55,9 @@ export default class Timer extends Component {
 					type: "short",
 					message: "Short break!"
 				},
-				time: this.times.shortBreak
+				time: this.times.shortBreak,
+				play: true,
+				showPlay: true
 			})
 
 			this.restartInterval()
@@ -64,7 +69,9 @@ export default class Timer extends Component {
 					type: "long",
 					message: "Long break!"
 				},
-				time: this.times.longBreak
+				time: this.times.longBreak,
+				play: true,
+				showPlay: true
 			})
 
 			this.restartInterval()
@@ -82,7 +89,8 @@ export default class Timer extends Component {
 					alert: {
 						type: "buz",
 						message: "Buzzzzzzz!"
-					}
+					},
+					showPlay: false
 				})
 			} else {
 				this.setState({
@@ -100,25 +108,36 @@ export default class Timer extends Component {
 
 		pause = () => {
 			clearInterval(this.interval)
+
+			this.setState({ play: false })
+		}
+
+		togglePlay = () => {
+			return this.state.play ? this.pause() : this.play()
 		}
 
   render() {
       const { alert: { type, message }, time} = this.state;
 
     return (
-      <div>
+      <div className="cont">
         <h1>POMODORO TIMER</h1>
-				<div className={`alert ${type}`}>
-					{message}
-				</div>
-        <div className="time-container">
+        <div className={`time-container ${type}`}>
+				<p className="time">
 					{this.displayTimer(time)}
+				</p>
+				<div>
+					<p>
+						{message}
+					</p>
+				</div>
+				<button className={`toggle`} disabled={!this.state.showPlay && true } onClick={this.togglePlay}>{this.state.play ? <i class="fas fa-pause-circle"></i> : <i class="fas fa-play-circle"></i>}</button>
+					{/* {this.state.showPlay ? <button className="toggle" onClick={this.togglePlay}>{this.state.play ? <i class="fas fa-pause-circle"></i> : <i class="fas fa-play-circle"></i>}</button> : "Click below"} */}
         </div>
 				<div className="btns">
 					<button className="start" onClick={this.setTimeForWork}>Start working</button>
 					<button className="short" onClick={this.setTimeForShortBreak}>Short break</button>
 					<button className="long" onClick={this.setTimeForLongBreak}>Long break</button>
-					<button onClick={this.pause}>pause</button>
 				</div>
       </div>
     )
