@@ -32,28 +32,61 @@ export default class Timer extends Component {
 			return `${min < 10 ? "0" : ""}${min}:${sec < 10 ? "0" : ""}${sec}`
 		}
 
-		setTime = newTime => {
-
-		}
-
-		restartInterval = () => {
-
-		}
-
-		countDown = () => {
-			
-		}
-
 		setTimeForWork = () => {
+			this.setState({
+				alert: {
+					type: "work",
+					message: "Working!"
+				},
+				time: this.times.defaultTime
+			})
 
+			this.restartInterval()
 		}
 
 		setTimeForShortBreak = () => {
+			this.setState({
+				alert: {
+					type: "short",
+					message: "Short break!"
+				},
+				time: this.times.shortBreak
+			})
 
+			this.restartInterval()
 		}
 
 		setTimeForLongBreak = () => {
+			this.setState({
+				alert: {
+					type: "long",
+					message: "Long break!"
+				},
+				time: this.times.longBreak
+			})
 
+			this.restartInterval()
+		}
+
+		restartInterval = () => {
+			clearInterval(this.interval);
+
+			this.interval = setInterval(this.countDown, 1000)
+		}
+
+		countDown = () => {
+			if (this.state.time === 0) {
+				this.setState({
+					alert: {
+						type: "buz",
+						message: "Buzzzzzzz!"
+					}
+				})
+			} else {
+				this.setState({
+					time: this.state.time - 1
+				})
+			}
 		}
 
   render() {
