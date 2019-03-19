@@ -26,6 +26,19 @@ body {
 	justify-content: center;
 	align-items: center;
 	margin: 30px 0;
+	transition: border-color 1s;
+}
+
+.time-container.work {
+	border-color: #00c911;
+}
+
+.time-container.short, .time-container.long {
+	border-color: #c45800;
+}
+
+.time-container.buz {
+	border-color: #c90000;
 }
 
 .time {
@@ -44,8 +57,6 @@ body {
 .toggle:disabled {
 	color: #7c7c7c3a;
 }
-
-
 .btns button {
 	padding: 10px 15px;
 	font-size: 1em;
