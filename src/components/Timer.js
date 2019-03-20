@@ -12,7 +12,8 @@ export default class Timer extends Component {
             },
 						time: 0,
 						play: false,
-						showPlay: false
+						showPlay: false,
+						title: "Pomodoro Timer"
         }
 
         this.times = {
@@ -27,6 +28,24 @@ export default class Timer extends Component {
             time: this.times.defaultTime
         })
 		}
+
+		setTime = (type, message, time) => {
+			this.setState({
+				alert: {
+					type,
+					message
+				},
+				time,
+				play: true,
+				showPlay: true,
+				// title: this.getTitle(time)
+			})
+			this.restartInterval()
+		}
+
+		componentWillUpdate() {
+			document.title = this.state.time === 0 ? "Pomodoro timer" : `${this.getTitle(this.state.time)} | Pomodoro timer`
+		}
 		
 		displayTimer = seconds => {
 			const min = Math.floor(seconds % 3600 / 60);
@@ -35,46 +54,20 @@ export default class Timer extends Component {
 			return `${min < 10 ? "0" : ""}${min}:${sec < 10 ? "0" : ""}${sec}`
 		}
 
-		setTimeForWork = () => {
-			this.setState({
-				alert: {
-					type: "work",
-					message: "Werk!"
-				},
-				time: this.times.defaultTime,
-				play: true,
-				showPlay: true
-			})
+		getTitle = (time) => {
+			return this.displayTimer(time)
+		}
 
-			this.restartInterval()
+		setTimeForWork = () => {
+			this.setTime("work", "Werk!", this.times.defaultTime)
 		}
 
 		setTimeForShortBreak = () => {
-			this.setState({
-				alert: {
-					type: "short",
-					message: "Taking a lil' break"
-				},
-				time: this.times.shortBreak,
-				play: true,
-				showPlay: true
-			})
-
-			this.restartInterval()
+			this.setTime("short", "Taking a lil' break", this.times.shortBreak)
 		}
 
 		setTimeForLongBreak = () => {
-			this.setState({
-				alert: {
-					type: "long",
-					message: "Taking a well deserved long break"
-				},
-				time: this.times.longBreak,
-				play: true,
-				showPlay: true
-			})
-
-			this.restartInterval()
+			this.setTime("long", "Taking a well deserved long break", this.times.longBreak)
 		}
 
 		restartInterval = () => {
@@ -117,11 +110,12 @@ export default class Timer extends Component {
 		}
 
   render() {
-      const { alert: { type, message }, time} = this.state;
+      const { alert: { type, message }, time, title} = this.state;
 
     return (
       <div className="cont">
         <h1>POMODORO TIMER</h1>
+				{title}
         <div className={`time-container ${type}`}>
 				<p className="time">
 					{this.displayTimer(time)}
